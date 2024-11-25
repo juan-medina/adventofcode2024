@@ -5,7 +5,7 @@ using CommandLine;
 
 namespace Application;
 
-internal abstract class Program
+internal abstract partial class Program
 {
     // ReSharper disable once ClassNeverInstantiated.Local
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
@@ -20,11 +20,6 @@ internal abstract class Program
         [Option('l', "location", Required = false, HelpText = "location of data files", Default = "data")]
         public required string Location { get; set; }
     }
-
-    private static readonly IDaySolver[] Solvers =
-    [
-        new Solver.Day1.SolutionDay1()
-    ];
 
     private static void Main(string[] args) => Parser.Default.ParseArguments<Options>(args).WithParsed(o =>
         (Solvers.FirstOrDefault(s => s.Day == o.Day) ?? new DefaultSolver()).Solve(o.Part, o.Location));
