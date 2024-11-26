@@ -27,12 +27,28 @@ public abstract class DaySolver(int day) : IDaySolver
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write(part);
         Console.WriteLine();
+        Console.ResetColor();
 
-        var input = File.ReadAllText($"{dataPath}/day{Day}_input.txt");
+
+        var filePath =
+            Path.Combine(
+                Path.IsPathRooted(dataPath) ? dataPath : Path.Combine(Directory.GetCurrentDirectory(), dataPath),
+                $"day{Day}_input.txt");
+
+        if (!File.Exists(filePath))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Error.WriteLine($"Input file not found: {filePath}");
+            Console.ResetColor();
+            return;
+        }
+
+        var input = File.ReadAllText(filePath);
+
         var result = Resolve(part, input);
 
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Input:");
+        Console.WriteLine($"Input: {filePath}");
         Console.WriteLine();
         Console.ResetColor();
         Console.WriteLine(input);
@@ -42,6 +58,7 @@ public abstract class DaySolver(int day) : IDaySolver
         Console.WriteLine();
         Console.ResetColor();
         Console.WriteLine(result);
+        Console.ResetColor();
     }
 
     protected static List<string> GetListFromString(string input) =>
