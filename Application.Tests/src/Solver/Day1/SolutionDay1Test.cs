@@ -31,8 +31,8 @@ public class SolutionDay1Test
                                       7pqrstsixteen
                                       """;
 
-    private const string Part2Expected = "281";    
-    
+    private const string Part2Expected = "281";
+
     [TestMethod]
     public void ResolvePart2Test() => Assert.AreEqual(Part2Expected, new SolutionDay1().Resolve(2, Part2Input));
 }

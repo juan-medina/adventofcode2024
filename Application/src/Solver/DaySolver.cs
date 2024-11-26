@@ -17,7 +17,7 @@ public abstract class DaySolver(int day) : IDaySolver
             Console.Error.WriteLine("Part must be 1 or 2");
             return;
         }
-        
+
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.Write($"Solving Day ");
         Console.ForegroundColor = ConsoleColor.Magenta;
@@ -57,5 +57,5 @@ public class DefaultSolver : IDaySolver
         Console.Error.WriteLine("Solver not found for the given day");
     }
 
-    public int Day { get; } = 99;
+    public int Day => 0;
 }
