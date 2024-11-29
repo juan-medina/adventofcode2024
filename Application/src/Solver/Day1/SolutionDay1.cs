@@ -1,8 +1,10 @@
-﻿namespace Application.Solver.Day1;
+﻿using Application.Helpers;
+
+namespace Application.Solver.Day1;
 
 public class SolutionDay1() : DaySolver(1)
 {
-    private static readonly Dictionary<string, int> DigitOnlyDictionary = new()
+    private static readonly Dictionary<string, int> DigitOnlyLookup = new()
     {
         { "1", 1 },
         { "2", 2 },
@@ -15,7 +17,7 @@ public class SolutionDay1() : DaySolver(1)
         { "9", 9 }
     };
 
-    private static readonly Dictionary<string, int> DigitsAndStringsDictionary = new(DigitOnlyDictionary)
+    private static readonly Dictionary<string, int> DigitsAndStringsLookup = new(DigitOnlyLookup)
     {
         { "one", 1 },
         { "two", 2 },
@@ -28,26 +30,13 @@ public class SolutionDay1() : DaySolver(1)
         { "nine", 9 }
     };
 
-    private static int GetNumber(string text, int at, Dictionary<string, int> map) => (from key in map.Keys
-        where at + key.Length <= text.Length
-        where text.Substring(at, key.Length) == key
-        select map[key]).FirstOrDefault();
-
-    private enum From
-    {
-        Left,
-        Right
-    }
-
-    private static int GetNumberInText(string text, From position, Dictionary<string, int> map) => text
-        .Select((_, index) => position == From.Left ? index : text.Length - 1 - index)
-        .Select(at => GetNumber(text, at, map))
-        .FirstOrDefault(result => result != 0);
+    private static int GetNumber(string input, From direction, Dictionary<string, int> lookup) =>
+        lookup.GetValueOrDefault(StringHelpers.GetFirstTokenInString(input, direction, lookup.Keys.ToArray()), 0);
 
     public override string Resolve(int part, string input) =>
         (from line in GetListFromString(input)
-            let dictionary = part == 1 ? DigitOnlyDictionary : DigitsAndStringsDictionary
-            let left = GetNumberInText(line, From.Left, dictionary)
-            let right = GetNumberInText(line, From.Right, dictionary)
+            let lookup = part == 1 ? DigitOnlyLookup : DigitsAndStringsLookup
+            let left = GetNumber(line, From.Left, lookup)
+            let right = GetNumber(line, From.Right, lookup)
             select int.Parse(left + "" + right)).Sum().ToString();
 }
