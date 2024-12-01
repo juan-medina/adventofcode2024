@@ -21,10 +21,10 @@ public class SolutionDay1Test
     private const string Part1Expected = "11";
 
     [TestMethod]
-    public void SplitInLeftRightListTest()
+    public void SplitInLeftRightListsTest()
     {
         var expected = (new List<int> { 3, 4, 2, 1, 3, 3 }, new List<int> { 4, 3, 5, 3, 9, 3 });
-        var actual = SolutionDay1.SplitInLeftRightList(Part1Input);
+        var actual = SolutionDay1.SplitInLeftRightLists(Part1Input);
         CollectionAssert.AreEqual(expected.Item1, actual.Item1, "left list");
         CollectionAssert.AreEqual(expected.Item2, actual.Item2, "right list");
     }
