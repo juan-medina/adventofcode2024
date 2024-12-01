@@ -19,7 +19,7 @@ public abstract class DaySolver(int day) : IDaySolver
         }
 
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write($"Solving Day ");
+        Console.Write("Solving Day ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write(Day);
         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -54,7 +54,7 @@ public abstract class DaySolver(int day) : IDaySolver
         Console.WriteLine(input);
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Result:");
+        Console.WriteLine("Result:");
         Console.WriteLine();
         Console.ResetColor();
         Console.WriteLine(result);
