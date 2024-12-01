@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using Application.Solver.Day1;
-using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Application.Tests.Solver.Day1;
 
 [TestClass]
-[TestSubject(typeof(SolutionDay1))]
 public class SolutionDay1Test
 {
     private const string Part1Input = """

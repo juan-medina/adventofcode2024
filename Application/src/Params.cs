@@ -1,10 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CommandLine;
+﻿using CommandLine;
 
 namespace Application;
 
-[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-// ReSharper disable once ClassNeverInstantiated.Global
 internal class Params
 {
     [Option('d', "day", Required = true, HelpText = "day to run")]

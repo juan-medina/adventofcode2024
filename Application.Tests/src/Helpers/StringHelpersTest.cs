@@ -1,12 +1,10 @@
 ﻿using Application.Helpers;
-using JetBrains.Annotations;
 
 namespace Application.Tests.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]
-[TestSubject(typeof(StringHelpersTest))]
 public class StringHelpersTest
 {
     [TestMethod]
