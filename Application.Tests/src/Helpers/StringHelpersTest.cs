@@ -3,6 +3,7 @@
 namespace Application.Tests.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 
 [TestClass]
 public class StringHelpersTest
@@ -10,16 +11,16 @@ public class StringHelpersTest
     [TestMethod]
     public void GetFirstTokenInStringTest()
     {
-        Assert.AreEqual("a", StringHelpers.GetFirstTokenInString("abc", From.Left, ["a", "b", "c"]));
-        Assert.AreEqual("c", StringHelpers.GetFirstTokenInString("abc", From.Right, ["a", "b", "c"]));
+        StringHelpers.GetFirstTokenInString("abc", From.Left, ["a", "b", "c"]).Should().Be("a");
+        StringHelpers.GetFirstTokenInString("abc", From.Right, ["a", "b", "c"]).Should().Be("c");
 
-        Assert.AreEqual("b", StringHelpers.GetFirstTokenInString("abc", From.Left, ["b", "c"]));
-        Assert.AreEqual("b", StringHelpers.GetFirstTokenInString("abc", From.Right, ["a", "b"]));
+        StringHelpers.GetFirstTokenInString("abc", From.Left, ["b", "c"]).Should().Be("b");
+        StringHelpers.GetFirstTokenInString("abc", From.Right, ["a", "b"]).Should().Be("b");
 
-        Assert.AreEqual("cat", StringHelpers.GetFirstTokenInString("acateatadog", From.Left, ["dog", "cat", "mouse"]));
-        Assert.AreEqual("dog", StringHelpers.GetFirstTokenInString("acateatadog", From.Right, ["dog", "cat", "mouse"]));
+        StringHelpers.GetFirstTokenInString("acateatadog", From.Left, ["dog", "cat", "mouse"]).Should().Be("cat");
+        StringHelpers.GetFirstTokenInString("acateatadog", From.Right, ["dog", "cat", "mouse"]).Should().Be("dog");
 
-        Assert.AreEqual("", StringHelpers.GetFirstTokenInString("thereisnone", From.Left, ["dog", "cat", "mouse"]));
-        Assert.AreEqual("", StringHelpers.GetFirstTokenInString("tereisnone", From.Right, ["dog", "cat", "mouse"]));
+        StringHelpers.GetFirstTokenInString("thereisnone", From.Left, ["dog", "cat", "mouse"]).Should().BeEmpty();
+        StringHelpers.GetFirstTokenInString("tereisnone", From.Right, ["dog", "cat", "mouse"]).Should().BeEmpty();
     }
 }
