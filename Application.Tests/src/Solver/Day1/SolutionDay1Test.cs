@@ -6,7 +6,7 @@ using FluentAssertions;
 namespace Application.Tests.Solver.Day1;
 
 [TestClass]
-public class SolutionDay1Test
+public class SolutionDay1Test : SolutionDay1
 {
     private const string Part1Input = """
                                       3   4
@@ -22,7 +22,7 @@ public class SolutionDay1Test
     [TestMethod]
     public void SplitInLeftRightListsTest() => SolutionDay1.SplitInLeftRightLists(Part1Input).Should()
         .BeEquivalentTo((new List<int> { 3, 4, 2, 1, 3, 3 }, new List<int> { 4, 3, 5, 3, 9, 3 }));
-    
+
     [TestMethod]
     public void ResolvePart1Test() => new SolutionDay1().Resolve(1, Part1Input).Should().Be(Part1Expected);
 
