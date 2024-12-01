@@ -28,22 +28,6 @@ public class SolutionDay1Test
         CollectionAssert.AreEqual(expected.Item1, actual.Item1, "left list");
         CollectionAssert.AreEqual(expected.Item2, actual.Item2, "right list");
     }
-    
-    [TestMethod]
-    public void RemoveSmallerTest()
-    {
-        var original = new List<int> { 3, 4, 2, 1, 3, 3 };
-        var expected = (1, new List<int> { 3, 4, 2, 3, 3 });
-        var (smallest, remaining) =  SolutionDay1.RemoveSmallest(original);
-        Assert.AreEqual(expected.Item1, smallest, "first smallest");
-        CollectionAssert.AreEqual(expected.Item2, remaining, "first remaining list");
-        
-        original = [3, 4, 2, 7, 3, 3, 2];
-        expected = (2, [3, 4, 7, 3, 3, 2]);
-        (smallest, remaining) =  SolutionDay1.RemoveSmallest(original);
-        Assert.AreEqual(expected.Item1, smallest, "second smallest");
-        CollectionAssert.AreEqual(expected.Item2, remaining, "second remaining list");
-    }
 
     [TestMethod]
     public void ResolvePart1Test() => Assert.AreEqual(Part1Expected, new SolutionDay1().Resolve(1, Part1Input));
