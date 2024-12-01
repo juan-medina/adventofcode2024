@@ -4,39 +4,69 @@ namespace Application.Solver.Day1;
 
 public class SolutionDay1() : DaySolver(1)
 {
-    private static readonly Dictionary<string, int> DigitOnlyLookup = new()
+    public static (List<int>, List<int>) SplitInLeftRightList(string input)
     {
-        { "1", 1 },
-        { "2", 2 },
-        { "3", 3 },
-        { "4", 4 },
-        { "5", 5 },
-        { "6", 6 },
-        { "7", 7 },
-        { "8", 8 },
-        { "9", 9 }
-    };
+        var list1 = new List<int>();
+        var list2 = new List<int>();
+        foreach (var items in GetListFromString(input).Select(line =>
+                     line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList()))
+        {
+            list1.Add(items[0]);
+            list2.Add(items[1]);
+        }
 
-    private static readonly Dictionary<string, int> DigitsAndStringsLookup = new(DigitOnlyLookup)
+        return (list1, list2);
+    }
+
+    public static (int, List<int>) RemoveSmallest(List<int> input)
     {
-        { "one", 1 },
-        { "two", 2 },
-        { "three", 3 },
-        { "four", 4 },
-        { "five", 5 },
-        { "six", 6 },
-        { "seven", 7 },
-        { "eight", 8 },
-        { "nine", 9 }
-    };
+        if (input.Count == 0) return (0, []);
 
-    private static int GetNumber(string input, From direction, Dictionary<string, int> lookup) =>
-        lookup.GetValueOrDefault(StringHelpers.GetFirstTokenInString(input, direction, lookup.Keys.ToArray()), 0);
+        var smallest = input[0];
+        var smallestIndex = 0;
 
-    public override string Resolve(int part, string input) =>
-        (from line in GetListFromString(input)
-            let lookup = part == 1 ? DigitOnlyLookup : DigitsAndStringsLookup
-            let left = GetNumber(line, From.Left, lookup)
-            let right = GetNumber(line, From.Right, lookup)
-            select int.Parse(left + "" + right)).Sum().ToString();
+        for (var i = 1; i < input.Count; i++)
+        {
+            if (input[i] >= smallest) continue;
+            smallest = input[i];
+            smallestIndex = i;
+        }
+
+        input.RemoveAt(smallestIndex);
+
+        return (smallest, input);
+    }
+
+    public override string Resolve(int part, string input)
+    {
+        var (left, right) = SplitInLeftRightList(input);
+
+        var total = 0;
+        var count = left.Count;
+
+
+        var minLeft = 0;
+        var minRight = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (part == 1)
+            {
+                (minLeft, left) = RemoveSmallest(left);
+                (minRight, right) = RemoveSmallest(right);
+
+                var distance = int.Abs(minRight - minLeft);
+                total += distance;
+            }
+            else
+            {
+                var numberLeft = left[i];
+                var totalTimesInRight = right.Count(x => x == numberLeft);
+                total += numberLeft * totalTimesInRight;
+            }
+        }
+
+
+        return total.ToString();
+    }
 }
