@@ -6,5 +6,8 @@
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day1.SolutionDay1Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Helpers.StringHelpersTest.GetTokenTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Helpers.StringHelpersTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day2.SolutionDay2Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day2.SolutionDay2Test.ResolvePart2Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day2.SolutionDay2Test&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
