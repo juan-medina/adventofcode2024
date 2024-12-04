@@ -6,7 +6,7 @@ public partial class SolutionDay3() : DaySolver(3)
 {
     private bool _doIt = true;
 
-    public override string Resolve(int part, string input) => OpcodesPattern().Matches(input).Select(match =>
+    public override int Resolve(int part, string input) => OpcodesPattern().Matches(input).Select(match =>
     {
         switch (match.Value)
         {
@@ -28,7 +28,7 @@ public partial class SolutionDay3() : DaySolver(3)
         }
 
         return (0, 0);
-    }).Sum(value => value.Item1 * value.Item2).ToString();
+    }).Sum(value => value.Item1 * value.Item2);
 
     [GeneratedRegex(@"mul\((\d{0,3}),(\d{0,3})\)|(do\(\))|(don\'t\(\))", RegexOptions.Multiline)]
     private static partial Regex OpcodesPattern();

@@ -64,7 +64,7 @@ public abstract class DaySolver(int day) : IDaySolver
     protected static List<string> GetListFromString(string input) =>
         input.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries).ToList();
 
-    public abstract string Resolve(int part, string input);
+    public abstract int Resolve(int part, string input);
 }
 
 public class DefaultSolver : IDaySolver

@@ -2,10 +2,10 @@
 
 public class SolutionDay1() : DaySolver(1)
 {
-    public override string Resolve(int part, string input)
+    public override int Resolve(int part, string input)
     {
         var (left, right) = SplitInLeftRightLists(input);
-        return (part == 1 ? Part1(left, right) : Part2(left, right)).ToString();
+        return part == 1 ? Part1(left, right) : Part2(left, right);
     }
 
     protected static (List<int>, List<int>) SplitInLeftRightLists(string input)

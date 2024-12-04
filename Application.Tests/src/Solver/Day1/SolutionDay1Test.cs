@@ -17,7 +17,7 @@ public class SolutionDay1Test : SolutionDay1
                                       3   3
                                       """;
 
-    private const string Part1Expected = "11";
+    private const int Part1Expected = 11;
 
     [TestMethod]
     public void SplitInLeftRightListsTest() => SolutionDay1.SplitInLeftRightLists(Part1Input).Should()
@@ -35,7 +35,7 @@ public class SolutionDay1Test : SolutionDay1
                                       3   3
                                       """;
 
-    private const string Part2Expected = "31";
+    private const int Part2Expected = 31;
 
     [TestMethod]
     public void ResolvePart2Test() => new SolutionDay1().Resolve(2, Part2Input).Should().Be(Part2Expected);

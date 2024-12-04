@@ -2,9 +2,9 @@
 
 public class SolutionDay2() : DaySolver(2)
 {
-    public override string Resolve(int part, string input) => GetListFromString(input)
+    public override int Resolve(int part, string input) => GetListFromString(input)
         .Select(report => report.Split(" ").Select(int.Parse).ToList())
-        .Count(part == 1 ? IsLevelsValid : IsLevelValidWithDampener).ToString();
+        .Count(part == 1 ? IsLevelsValid : IsLevelValidWithDampener);
 
     private static bool IsLevelsValid(List<int> levels) => (levels.Count < 1) ||
                                                            levels.Zip(levels.Skip(1), (a, b) => a - b).All(diff =>

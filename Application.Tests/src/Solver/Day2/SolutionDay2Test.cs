@@ -16,7 +16,7 @@ public class SolutionDay2Test : SolutionDay2
                                       1 3 6 7 9
                                       """;
 
-    private const string Part1Expected = "2";
+    private const int Part1Expected = 2;
     
     [TestMethod]
     public void ResolvePart1Test() => new SolutionDay2().Resolve(1, Part1Input).Should().Be(Part1Expected);
@@ -30,7 +30,7 @@ public class SolutionDay2Test : SolutionDay2
                                       1 3 6 7 9
                                       """;
 
-    private const string Part2Expected = "4";
+    private const int Part2Expected = 4;
 
     [TestMethod]
     public void ResolvePart2Test() => new SolutionDay2().Resolve(2, Part2Input).Should().Be(Part2Expected);
