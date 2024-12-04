@@ -20,6 +20,12 @@ public class SolutionDay4() : DaySolver(4)
             .SelectMany(dx => Enumerable.Range(-1, 3).Select(dy => (dx, dy)))
             .Sum(pair => CheckAt(map, x, y, pair.dx, pair.dy, search));
 
+    private static int CrossAt(List<string> map, int x, int y, string search) =>
+        new[] { (-1, -1), (1, 1), (-1, 1), (1, -1) }.Count(dir =>
+            CheckAt(map, x + dir.Item1, y + dir.Item2, -dir.Item1, -dir.Item2, search) == 1) == 2
+            ? 1
+            : 0;
+
     private static int CheckAt(List<string> map, int x, int y, int dx, int dy, string search) =>
         search.All(character =>
         {
@@ -37,15 +43,6 @@ public class SolutionDay4() : DaySolver(4)
             x += dx;
             return true;
         })
-            ? 1
-            : 0;
-
-    private static int CrossAt(List<string> map, int x, int y, string search) =>
-        new[] { (-1, -1), (1, 1) }
-            .Any(pair => CheckAt(map, x + pair.Item1, y + pair.Item2, -pair.Item1, -pair.Item2, search) == 1) &&
-        new[] { (-1, 1), (1, -1) }
-            .Select(pair => (pair.Item2, pair.Item1))
-            .Any(pair => CheckAt(map, x + pair.Item1, y + pair.Item2, -pair.Item1, -pair.Item2, search) == 1)
             ? 1
             : 0;
 }
