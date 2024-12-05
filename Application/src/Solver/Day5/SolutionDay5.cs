@@ -5,50 +5,17 @@ public class SolutionDay5() : DaySolver(5)
     public override int Resolve(int part, string input)
     {
         var (rules, updates) = ParseInput(input);
-        var toProcess = new List<List<int>>();
+        var toProcess = updates
+            .Where(update => update.Select((_, i) => !update.Select((t2, j) => j > i
+                        ? rules.Any(rule => rule.Item1 == update[i] && rule.Item2 == t2)
+                        : rules.Any(rule => rule.Item1 == t2 && rule.Item2 == update[i]))
+                    .Where((valid, j) => !valid && i != j).Any())
+                .All(x => x == (part == 1)))
+            .ToList();
 
-        foreach (var update in updates)
+        if (part == 2)
         {
-            var updateIsValid = true;
-            for (var i = 0; i < update.Count; i++)
-            {
-                var page = update[i];
-                // check pages left from i
-                var validFromLeft = true;
-                for (var j = i - 1; j > 0; j--)
-                {
-                    var otherPage = update[j];
-                    var valid = rules.Any(rule => rule.Item1 == page && rule.Item2 == otherPage);
-
-                    if (valid) continue;
-                    validFromLeft = false;
-                    break;
-                }
-
-                if (!validFromLeft) continue;
-                {
-                    // check pages right from i
-                    var validFromRight = true;
-                    for (var j = i + 1; j < update.Count; j++)
-                    {
-                        var otherPage = update[j];
-                        var valid = rules.Any(rule => rule.Item1 == page && rule.Item2 == otherPage);
-
-                        if (valid) continue;
-                        validFromRight = false;
-                        break;
-                    }
-
-                    if (validFromRight) continue;
-                    updateIsValid = false;
-                    break;
-                }
-            }
-            
-            if (updateIsValid)
-            {
-                toProcess.Add(update);
-            }
+            updates.Sort();
         }
 
         return toProcess.Sum(update => update[update.Count / 2]);

@@ -44,23 +44,24 @@ public class SolutionDay5Test : SolutionDay5
     [TestMethod]
     public void ResolvePart1Test() => new SolutionDay5().Resolve(1, Part1Input).Should().Be(Part1Expected);
 
+
+    private const string TestInput = """
+                                     1|23
+                                     10|4
+
+                                     10,20,30
+                                     60,50
+                                     """;
+
+    private readonly List<(int, int)> _expectedRules = [(1, 23), (10, 4)];
+    private readonly List<List<int>> _expectedUpdates = [new() { 10, 20, 30 }, new() { 60, 50 }];
+
     [TestMethod]
     public void ParseInputTest()
     {
-        const string testInput = """
-                                 1|23
-                                 10|4
+        var (rules, updates) = ParseInput(TestInput);
 
-                                 10,20,30
-                                 60,50
-                                 """;
-
-        var expectedRules = new List<(int, int)> { (1, 23), (10, 4) };
-        var expectedUpdates = new List<List<int>> { new() { 10, 20, 30 }, new() { 60, 50 } };
-
-        var (rules, updates) = ParseInput(testInput);
-        
-        rules.Should().BeEquivalentTo(expectedRules);
-        updates.Should().BeEquivalentTo(expectedUpdates);
+        rules.Should().BeEquivalentTo(_expectedRules);
+        updates.Should().BeEquivalentTo(_expectedUpdates);
     }
 }
