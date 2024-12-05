@@ -1,5 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ALateBoundTestFramework_002Ecs_002Fl_003AC_0021_003FUsers_003Fmail_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F22647a7960d2619ab733924a2acfee09d32a8827c8c680a37cc4863678abec_003FLateBoundTestFramework_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ANumber_002EParsing_002Ecs_002Fl_003AC_0021_003FUsers_003Fmail_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fde8a243f75215d958afa80cf80a41b4981a44efea7db93bffcdaf7bd6ba378c0_003FNumber_002EParsing_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AThrowHelper_002Ecs_002Fl_003AC_0021_003FUsers_003Fmail_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fc7102cd0ffb8973777e61b1942c3fffac7e14016a511d055c3adf73ff91748_003FThrowHelper_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=EB24BFB3_002D9225_002D4625_002D8A8F_002DDF69BEEE9A26/@EntryIndexedValue">Application.Tests</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=MSTest/@EntryIndexedValue">d6790ab7-33c2-4425-b2c9-51480cd1a852</s:String>
@@ -16,5 +17,8 @@
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day4.SolutionDay4Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day4.SolutionDay4Test.ResolvePart2Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day4.SolutionDay4Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day5.SolutionDay5Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day5.SolutionDay5Test.ParseInputTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day5.SolutionDay5Test&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
