@@ -10,13 +10,23 @@ public class SolutionDay5() : DaySolver(5)
                         ? rules.Any(rule => rule.Item1 == update[i] && rule.Item2 == t2)
                         : rules.Any(rule => rule.Item1 == t2 && rule.Item2 == update[i]))
                     .Where((valid, j) => !valid && i != j).Any())
-                .All(x => x == (part == 1)))
+                .All(x => x) == (part == 1))
             .ToList();
-
-        if (part == 2)
+        foreach (var update in toProcess)
         {
-            updates.Sort();
+            update.Sort((page1, page2) =>
+            {
+                var rule = rules.FirstOrDefault(r =>
+                    (r.Item1 == page1 && r.Item2 == page2) || (r.Item1 == page2 && r.Item2 == page1));
+                if (!rule.Equals(default))
+                {
+                    return rule.Item1 == page1 ? 1 : -1;
+                }
+
+                return 0;
+            });
         }
+
 
         return toProcess.Sum(update => update[update.Count / 2]);
     }
