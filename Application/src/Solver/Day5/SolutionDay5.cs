@@ -5,30 +5,20 @@ public class SolutionDay5() : DaySolver(5)
     public override int Resolve(int part, string input)
     {
         var (rules, updates) = ParseInput(input);
-        var toProcess = updates
+        return updates
             .Where(update => update.Select((_, i) => !update.Select((t2, j) => j > i
                         ? rules.Any(rule => rule.Item1 == update[i] && rule.Item2 == t2)
                         : rules.Any(rule => rule.Item1 == t2 && rule.Item2 == update[i]))
                     .Where((valid, j) => !valid && i != j).Any())
                 .All(x => x) == (part == 1))
-            .ToList();
-        foreach (var update in toProcess)
-        {
-            update.Sort((page1, page2) =>
-            {
-                var rule = rules.FirstOrDefault(r =>
-                    (r.Item1 == page1 && r.Item2 == page2) || (r.Item1 == page2 && r.Item2 == page1));
-                if (!rule.Equals(default))
-                {
-                    return rule.Item1 == page1 ? 1 : -1;
-                }
+            .Select(update => update.OrderBy(page1 => page1, new PageComparer(rules)).ToList())
+            .ToList().Sum(update => update[update.Count / 2]);
+    }
 
-                return 0;
-            });
-        }
-
-
-        return toProcess.Sum(update => update[update.Count / 2]);
+    private class PageComparer(List<(int, int)> rules) : IComparer<int>
+    {
+        private int GetRuleResult(int page1, int page2) => rules.Any(r => r.Item1 == page1 && r.Item2 == page2) ? 1 : 0;
+        public int Compare(int page1, int page2) => GetRuleResult(page1, page2) - GetRuleResult(page2, page1);
     }
 
     protected static (List<(int, int)>, List<List<int>>) ParseInput(string input)
