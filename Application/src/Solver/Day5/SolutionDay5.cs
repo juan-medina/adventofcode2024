@@ -10,11 +10,10 @@ public class SolutionDay5() : DaySolver(5)
                         ? rules.Any(rule => rule.Item1 == update[i] && rule.Item2 == t2)
                         : rules.Any(rule => rule.Item1 == t2 && rule.Item2 == update[i]))
                     .Where((valid, j) => !valid && i != j).Any())
-                .All(x => x) == (part == 1))
-            .Select(update => update.OrderBy(page1 => page1, new PageComparer(rules)).ToList())
+                .All(x => x) == (part == 1)) // get valid or not valid, depending on part 1/2
+            .Select(update => update.OrderBy(page1 => page1, new PageComparer(rules)).ToList()) // sort pages
             .ToList().Sum(update => update[update.Count / 2]);
     }
-
     private class PageComparer(List<(int, int)> rules) : IComparer<int>
     {
         private int GetRuleResult(int page1, int page2) => rules.Any(r => r.Item1 == page1 && r.Item2 == page2) ? 1 : 0;
