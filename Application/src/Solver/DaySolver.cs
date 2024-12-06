@@ -33,7 +33,7 @@ public abstract class DaySolver(int day) : IDaySolver
         var filePath =
             Path.Combine(
                 Path.IsPathRooted(dataPath) ? dataPath : Path.Combine(Directory.GetCurrentDirectory(), dataPath),
-                $"day{Day}_input.txt");
+                $"day_{Day:D2}_input.txt");
 
         if (!File.Exists(filePath))
         {
