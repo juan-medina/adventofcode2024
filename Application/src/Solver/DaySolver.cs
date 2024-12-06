@@ -1,4 +1,6 @@
-﻿namespace Application.Solver;
+﻿using System.Diagnostics;
+
+namespace Application.Solver;
 
 public interface IDaySolver
 {
@@ -45,20 +47,31 @@ public abstract class DaySolver(int day) : IDaySolver
 
         var input = File.ReadAllText(filePath);
 
-        var result = Resolve(part, input);
-
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine($"Input: {filePath}");
         Console.WriteLine();
         Console.ResetColor();
         Console.WriteLine(input);
         Console.WriteLine();
+        
+        // get timer before
+        var timer = Stopwatch.StartNew();
+        var result = Resolve(part, input);
+        timer.Stop();        
+        
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("Result:");
         Console.WriteLine();
         Console.ResetColor();
         Console.WriteLine(result);
         Console.ResetColor();
+        Console.WriteLine();
+        
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine($"Time:" );
+        Console.WriteLine();
+        Console.ResetColor();
+        Console.WriteLine($"{timer.ElapsedMilliseconds} ms" );
     }
 
     protected static List<string> GetListFromString(string input) =>
