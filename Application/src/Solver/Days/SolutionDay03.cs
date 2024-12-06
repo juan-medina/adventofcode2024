@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Application.Solver.Day3;
+namespace Application.Solver.Days;
 
-public partial class SolutionDay3() : DaySolver(3)
+public partial class SolutionDay03() : DaySolver(3)
 {
     private bool _doIt = true;
 

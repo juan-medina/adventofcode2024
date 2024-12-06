@@ -1,11 +1,11 @@
-﻿using Application.Solver.Day2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Application.Solver.Days;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Application.Tests.Solver.Day2;
+namespace Application.Tests.Solver.Days;
 
 [TestClass]
-public class SolutionDay2Test : SolutionDay2
+public class SolutionDay02Test : SolutionDay02
 {
     private const string Part1Input = """
                                       7 6 4 2 1
@@ -19,7 +19,7 @@ public class SolutionDay2Test : SolutionDay2
     private const int Part1Expected = 2;
     
     [TestMethod]
-    public void ResolvePart1Test() => new SolutionDay2().Resolve(1, Part1Input).Should().Be(Part1Expected);
+    public void ResolvePart1Test() => new SolutionDay02().Resolve(1, Part1Input).Should().Be(Part1Expected);
 
     private const string Part2Input = """
                                       7 6 4 2 1
@@ -33,5 +33,5 @@ public class SolutionDay2Test : SolutionDay2
     private const int Part2Expected = 4;
 
     [TestMethod]
-    public void ResolvePart2Test() => new SolutionDay2().Resolve(2, Part2Input).Should().Be(Part2Expected);
+    public void ResolvePart2Test() => new SolutionDay02().Resolve(2, Part2Input).Should().Be(Part2Expected);
 }

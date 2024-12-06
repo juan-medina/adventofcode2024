@@ -1,6 +1,6 @@
-﻿namespace Application.Solver.Day2;
+﻿namespace Application.Solver.Days;
 
-public class SolutionDay2() : DaySolver(2)
+public class SolutionDay02() : DaySolver(2)
 {
     public override int Resolve(int part, string input) => GetListFromString(input)
         .Select(report => report.Split(" ").Select(int.Parse).ToList())

@@ -1,6 +1,6 @@
-﻿namespace Application.Solver.Day4;
+﻿namespace Application.Solver.Days;
 
-public class SolutionDay4() : DaySolver(4)
+public class SolutionDay04() : DaySolver(4)
 {
     private const string Part1Search = "XMAS";
     private const string Part2Search = "MAS";

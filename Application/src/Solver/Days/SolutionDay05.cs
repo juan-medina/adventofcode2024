@@ -1,6 +1,6 @@
-﻿namespace Application.Solver.Day5;
+﻿namespace Application.Solver.Days;
 
-public class SolutionDay5() : DaySolver(5)
+public class SolutionDay05() : DaySolver(5)
 {
     public override int Resolve(int part, string input)
     {
