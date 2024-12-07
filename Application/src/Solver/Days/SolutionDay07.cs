@@ -8,22 +8,27 @@ public class SolutionDay07() : DaySolver(7)
         select line.Split([' ', ':'], StringSplitOptions.RemoveEmptyEntries).Select(ulong.Parse).ToArray()
         into items
         let target = items[0]
-        let result = Calc(items.Skip(1).ToArray(), 0, 0, target, part == 1 ? Part1Operators : Part2Operators)
+        let result = Calc(items.Skip(1).ToArray(), target, part == 1 ? Part1Operators : Part2Operators)
         where result == target
         select result).Aggregate(0ul, (current, result) => current + result);
 
-    private static ulong Calc(ulong[] items, ulong index, ulong current, ulong target, List<Operator> operators)
+    private static ulong Calc(ulong[] items, ulong target, List<Operator> operators)
     {
-        if (current >= target || index == (ulong)items.Length) return current;
-        foreach (var operation in operators)
+        var queue = new Queue<(int, ulong)>();
+        queue.Enqueue((0, 0));
+        while (queue.Count > 0)
         {
-            if (Calc(items, index + 1, operation(current, items[index]), target, operators) == target)
+            var (index, current) = queue.Dequeue();
+            if (current >= target || index == items.Length) return current;
+
+            foreach (var result in operators.Select(operation => operation(current, items[index])))
             {
-                return target;
+                if (result == target) return target;
+                queue.Enqueue((index + 1, current));
             }
         }
 
-        return current;
+        return 0;
     }
 
     private delegate ulong Operator(ulong param1, ulong param2);
