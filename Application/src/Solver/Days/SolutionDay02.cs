@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay02() : DaySolver(2)
 {
-    public override int Resolve(int part, string input) => StringHelpers.GetListFromString(input)
+    public override ulong Resolve(int part, string input) => (ulong)StringHelpers.GetListFromString(input)
         .Select(report => report.Split(" ").Select(int.Parse).ToList())
         .Count(part == 1 ? IsLevelsValid : IsLevelValidWithDampener);
 

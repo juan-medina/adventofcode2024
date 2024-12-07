@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay06() : DaySolver(6)
 {
-    public override int Resolve(int part, string input)
+    public override ulong Resolve(int part, string input)
     {
         var map = StringHelpers.Get2DArrayFromString(input);
         var blocks = map.SelectMany((rb, y) => rb.Select((cb, x) => (x, y, cb)))
@@ -16,10 +16,10 @@ public class SolutionDay06() : DaySolver(6)
             .First(t => map[t.y][t.x] == t.c)
             .ToTuple();
         var visited = GetVisited(blocks, map[0].Length, map.Length, row, col, c);
-        return part == 1
+        return (ulong)(part == 1
             ? visited.Count
             : visited.Select(visit => GetVisited(blocks, map[0].Length, map.Length, row, col, c, visit))
-                .Count(visitWithExtra => visitWithExtra.Count == 0);
+                .Count(visitWithExtra => visitWithExtra.Count == 0));
     }
 
     private static HashSet<(int, int)> GetVisited(HashSet<(int, int)> blocks, int width, int height, int row, int col,

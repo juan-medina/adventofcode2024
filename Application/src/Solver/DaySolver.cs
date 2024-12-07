@@ -74,7 +74,7 @@ public abstract class DaySolver(int day) : IDaySolver
         Console.WriteLine($"{timer.ElapsedMilliseconds} ms");
     }
 
-    public abstract int Resolve(int part, string input);
+    public abstract ulong Resolve(int part, string input);
 }
 
 public class DefaultSolver : IDaySolver

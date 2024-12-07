@@ -6,7 +6,7 @@ public partial class SolutionDay03() : DaySolver(3)
 {
     private bool _doIt = true;
 
-    public override int Resolve(int part, string input) => OpcodesPattern().Matches(input).Select(match =>
+    public override ulong Resolve(int part, string input) => (ulong)OpcodesPattern().Matches(input).Select(match =>
     {
         switch (match.Value)
         {

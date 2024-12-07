@@ -4,10 +4,10 @@ namespace Application.Solver.Days;
 
 public class SolutionDay05() : DaySolver(5)
 {
-    public override int Resolve(int part, string input)
+    public override ulong Resolve(int part, string input)
     {
         var (rules, updates) = ParseInput(input);
-        return updates
+        return (ulong)updates
             .Where(update => update.Select((_, i) => !update.Select((t2, j) => j > i
                         ? rules.Any(rule => rule.Item1 == update[i] && rule.Item2 == t2)
                         : rules.Any(rule => rule.Item1 == t2 && rule.Item2 == update[i]))
