@@ -39,6 +39,36 @@
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay06Test.ResolvePart2Test&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=70267d1c_002D53a6_002D4700_002D9218_002D7e99d45fbb2f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day1.SolutionDay1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Helpers.StringHelpersTest.GetTokenTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Helpers.StringHelpersTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day2.SolutionDay2Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day2.SolutionDay2Test.ResolvePart2Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day2.SolutionDay2Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day3.SolutionDay3Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day3.SolutionDay3Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day4.SolutionDay4Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day4.SolutionDay4Test.ResolvePart2Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day4.SolutionDay4Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day5.SolutionDay5Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day5.SolutionDay5Test.ParseInputTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day5.SolutionDay5Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Day1.SolutionDay01Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay01Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay02Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay03Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay04Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay05Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay06Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.DaySolverTest.GetListFromStringTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.DaySolverTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay06Test.ResolvePart2Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay06Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay07Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a03e7ab6_002Da42b_002D47b7_002Da524_002Da174b396ce71/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ResolvePart1Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;MSTest::B2E37745-36BC-4246-9771-AFF852E31374::net9.0::Application.Tests.Solver.Days.SolutionDay06Test.ResolvePart1Test&lt;/TestId&gt;&#xD;
