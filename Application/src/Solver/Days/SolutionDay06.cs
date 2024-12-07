@@ -18,7 +18,7 @@ public class SolutionDay06() : DaySolver(6)
         var visited = GetVisited(blocks, map[0].Length, map.Length, row, col, c);
         return part == 1
             ? visited.Count
-            : visited.Select(visit => GetVisited(visited, map[0].Length, map.Length, row, col, c, visit))
+            : visited.Select(visit => GetVisited(blocks, map[0].Length, map.Length, row, col, c, visit))
                 .Count(visitWithExtra => visitWithExtra.Count == 0);
     }
 
