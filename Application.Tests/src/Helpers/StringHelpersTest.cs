@@ -1,4 +1,5 @@
-﻿using Application.Helpers;
+﻿using System.Collections.Generic;
+using Application.Helpers;
 
 namespace Application.Tests.Helpers;
 
@@ -22,5 +23,36 @@ public class StringHelpersTest
 
         StringHelpers.GetFirstTokenInString("thereisnone", From.Left, ["dog", "cat", "mouse"]).Should().BeEmpty();
         StringHelpers.GetFirstTokenInString("tereisnone", From.Right, ["dog", "cat", "mouse"]).Should().BeEmpty();
+    }
+
+    private const string TestInput = """
+                                     ABC
+                                     DEF
+                                     """;
+
+    private static readonly List<string> ExpectedList =
+    [
+        "ABC",
+        "DEF",
+    ];
+
+    private static readonly char[][] ExpectedArray =
+    [
+        ['A', 'B', 'C'],
+        ['D', 'E', 'F'],
+    ];
+
+    [TestMethod]
+    public void GetListFromStringTest()
+    {
+        var result = StringHelpers.GetListFromString(TestInput);
+        result.Should().BeEquivalentTo(ExpectedList);
+    }
+
+    [TestMethod]
+    public void Get2DArrayFromStringTest()
+    {
+        var result = StringHelpers.Get2DArrayFromString(TestInput);
+        result.Should().BeEquivalentTo(ExpectedArray);
     }
 }

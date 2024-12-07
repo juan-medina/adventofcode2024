@@ -1,10 +1,12 @@
-﻿namespace Application.Solver.Days;
+﻿using Application.Helpers;
+
+namespace Application.Solver.Days;
 
 public class SolutionDay06() : DaySolver(6)
 {
     public override int Resolve(int part, string input)
     {
-        var map = Get2DArrayFromString(input);
+        var map = StringHelpers.Get2DArrayFromString(input);
         var blocks = map.SelectMany((rb, y) => rb.Select((cb, x) => (x, y, cb)))
             .Where(t => t.cb == '#')
             .Select(t => (t.y, t.x))
@@ -19,6 +21,7 @@ public class SolutionDay06() : DaySolver(6)
             : visited.Select(visit => GetVisited(visited, map[0].Length, map.Length, row, col, c, visit))
                 .Count(visitWithExtra => visitWithExtra.Count == 0);
     }
+
     private static HashSet<(int, int)> GetVisited(HashSet<(int, int)> blocks, int width, int height, int row, int col,
         char c, (int, int) extraBlock = default)
     {

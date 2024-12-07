@@ -17,4 +17,10 @@ public static class StringHelpers
         .Select((_, index) => position == From.Left ? index : text.Length - 1 - index)
         .Select(at => GetToken(text, at, tokens))
         .FirstOrDefault(result => result != string.Empty) ?? string.Empty;
+
+    public static List<string> GetListFromString(string input) =>
+        input.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries).ToList();
+
+    public static char[][] Get2DArrayFromString(string input) =>
+        GetListFromString(input).Select(line => line.ToCharArray()).ToArray();
 }

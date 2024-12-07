@@ -53,12 +53,12 @@ public abstract class DaySolver(int day) : IDaySolver
         Console.ResetColor();
         Console.WriteLine(input);
         Console.WriteLine();
-        
+
         // get timer before
         var timer = Stopwatch.StartNew();
         var result = Resolve(part, input);
-        timer.Stop();        
-        
+        timer.Stop();
+
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("Result:");
         Console.WriteLine();
@@ -66,19 +66,13 @@ public abstract class DaySolver(int day) : IDaySolver
         Console.WriteLine(result);
         Console.ResetColor();
         Console.WriteLine();
-        
+
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Time:" );
+        Console.WriteLine($"Time:");
         Console.WriteLine();
         Console.ResetColor();
-        Console.WriteLine($"{timer.ElapsedMilliseconds} ms" );
+        Console.WriteLine($"{timer.ElapsedMilliseconds} ms");
     }
-
-    protected static List<string> GetListFromString(string input) =>
-        input.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries).ToList();
-
-    protected static char[][] Get2DArrayFromString(string input) =>
-        GetListFromString(input).Select(line => line.ToCharArray()).ToArray();
 
     public abstract int Resolve(int part, string input);
 }

@@ -1,4 +1,6 @@
-﻿namespace Application.Solver.Days;
+﻿using Application.Helpers;
+
+namespace Application.Solver.Days;
 
 public class SolutionDay05() : DaySolver(5)
 {
@@ -14,6 +16,7 @@ public class SolutionDay05() : DaySolver(5)
             .Select(update => update.OrderBy(page1 => page1, new PageComparer(rules)).ToList()) // sort pages
             .ToList().Sum(update => update[update.Count / 2]);
     }
+
     private class PageComparer(List<(int, int)> rules) : IComparer<int>
     {
         private int GetRuleResult(int page1, int page2) => rules.Any(r => r.Item1 == page1 && r.Item2 == page2) ? 1 : 0;
@@ -22,7 +25,7 @@ public class SolutionDay05() : DaySolver(5)
 
     protected static (List<(int, int)>, List<List<int>>) ParseInput(string input)
     {
-        var lines = GetListFromString(input);
+        var lines = StringHelpers.GetListFromString(input);
         var rules = lines
             .Where(line => line.Contains('|'))
             .Select(line => line.Split('|'))

@@ -1,4 +1,6 @@
-﻿namespace Application.Solver.Days;
+﻿using Application.Helpers;
+
+namespace Application.Solver.Days;
 
 public class SolutionDay01() : DaySolver(1)
 {
@@ -12,7 +14,7 @@ public class SolutionDay01() : DaySolver(1)
     {
         var list1 = new List<int>();
         var list2 = new List<int>();
-        foreach (var items in GetListFromString(input).Select(line =>
+        foreach (var items in StringHelpers.GetListFromString(input).Select(line =>
                      line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList()))
         {
             list1.Add(items.First());

@@ -1,4 +1,6 @@
-﻿namespace Application.Solver.Days;
+﻿using Application.Helpers;
+
+namespace Application.Solver.Days;
 
 public class SolutionDay04() : DaySolver(4)
 {
@@ -7,7 +9,7 @@ public class SolutionDay04() : DaySolver(4)
 
     public override int Resolve(int part, string input)
     {
-        var map = GetListFromString(input);
+        var map = StringHelpers.GetListFromString(input);
         return map
             .SelectMany((row, y) => row.Select((c, x) => (x, y, c)))
             .Where(t => part == 1 ? t.c == Part1Search[0] : t.c == Part2Search[1])
