@@ -17,9 +17,9 @@ public class SolutionDay08() : DaySolver(8)
                     while (true)
                     {
                         (int y, int x) l = (d.y * i, d.x * i);
-                        var up = CheckAntinode(pair.a1, (l.y, l.x));
-                        var down = CheckAntinode(pair.a2, (-l.y, -l.x));
-                        if (part == 1 || !(up || down)) break;
+                        var from1 = CheckAntinode(pair.a1, (l.y, l.x));
+                        var from2 = CheckAntinode(pair.a2, (-l.y, -l.x));
+                        if (part == 1 || !(from2 || from1)) break;
                         i++;
                     }
                 }
