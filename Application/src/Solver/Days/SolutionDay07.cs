@@ -12,18 +12,25 @@ public class SolutionDay07() : DaySolver(7)
         where result == target
         select result).Aggregate(0ul, (current, result) => current + result);
 
-    private static ulong Calc(ulong[] items, ulong target, List<Operator> operators, int index = 0, ulong current = 0)
+    private static ulong Calc(ulong[] items, ulong target, List<Operator> operators)
     {
-        if (current >= target || index == items.Length) return current;
-        foreach (var operation in operators)
+        var stack = new Stack<(int index, ulong current)>();
+        stack.Push((0, 0));
+        while (stack.Count > 0)
         {
-            if (Calc(items, target, operators, index + 1, operation(current, items[index])) == target)
+            var (index, current) = stack.Pop();
+
+            if (current == target) return current;
+            if (current > target || index == items.Length) continue;
+
+            foreach (var op in operators)
             {
-                return target;
+                var result = op(current, items[index]);
+                stack.Push((index + 1, result));
             }
         }
 
-        return current;
+        return 0;
     }
 
     private delegate ulong Operator(ulong param1, ulong param2);
