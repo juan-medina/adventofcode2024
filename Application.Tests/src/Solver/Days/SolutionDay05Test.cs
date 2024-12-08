@@ -28,75 +28,44 @@ public class SolutionDay05Test : SolutionDay05
         updates.Should().BeEquivalentTo(_expectedUpdates);
     }
 
-    private const string Part1Input = """
-                                      47|53
-                                      97|13
-                                      97|61
-                                      97|47
-                                      75|29
-                                      61|13
-                                      75|53
-                                      29|13
-                                      97|29
-                                      53|29
-                                      61|53
-                                      97|53
-                                      61|29
-                                      47|13
-                                      75|47
-                                      97|75
-                                      47|61
-                                      75|61
-                                      47|29
-                                      75|13
-                                      53|13
+    private const string Input = """
+                                 47|53
+                                 97|13
+                                 97|61
+                                 97|47
+                                 75|29
+                                 61|13
+                                 75|53
+                                 29|13
+                                 97|29
+                                 53|29
+                                 61|53
+                                 97|53
+                                 61|29
+                                 47|13
+                                 75|47
+                                 97|75
+                                 47|61
+                                 75|61
+                                 47|29
+                                 75|13
+                                 53|13
 
-                                      75,47,61,53,29
-                                      97,61,53,29,13
-                                      75,29,13
-                                      75,97,47,61,53
-                                      61,13,29
-                                      97,13,75,29,47
-                                      """;
+                                 75,47,61,53,29
+                                 97,61,53,29,13
+                                 75,29,13
+                                 75,97,47,61,53
+                                 61,13,29
+                                 97,13,75,29,47
+                                 """;
 
     private const int Part1Expected = 143;
 
     [TestMethod]
-    public void ResolvePart1Test() => new SolutionDay05().Resolve(1, Part1Input).Should().Be(Part1Expected);
-    
-    private const string Part2Input = """
-                                      47|53
-                                      97|13
-                                      97|61
-                                      97|47
-                                      75|29
-                                      61|13
-                                      75|53
-                                      29|13
-                                      97|29
-                                      53|29
-                                      61|53
-                                      97|53
-                                      61|29
-                                      47|13
-                                      75|47
-                                      97|75
-                                      47|61
-                                      75|61
-                                      47|29
-                                      75|13
-                                      53|13
-
-                                      75,47,61,53,29
-                                      97,61,53,29,13
-                                      75,29,13
-                                      75,97,47,61,53
-                                      61,13,29
-                                      97,13,75,29,47
-                                      """;
+    public void ResolvePart1Test() => new SolutionDay05().Resolve(1, Input).Should().Be(Part1Expected);
 
     private const int Part2Expected = 123;
 
     [TestMethod]
-    public void ResolvePart2Test() => new SolutionDay05().Resolve(2, Part2Input).Should().Be(Part2Expected);    
+    public void ResolvePart2Test() => new SolutionDay05().Resolve(2, Input).Should().Be(Part2Expected);
 }
