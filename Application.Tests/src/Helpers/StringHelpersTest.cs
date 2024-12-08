@@ -36,12 +36,6 @@ public class StringHelpersTest
         "DEF",
     ];
 
-    private static readonly char[][] ExpectedArray =
-    [
-        ['A', 'B', 'C'],
-        ['D', 'E', 'F'],
-    ];
-
     [TestMethod]
     public void GetListFromStringTest()
     {
@@ -50,9 +44,11 @@ public class StringHelpersTest
     }
 
     [TestMethod]
-    public void Get2DArrayFromStringTest()
+    public void GetListFromStringWithBoundsTest()
     {
-        var result = StringHelpers.Get2DArrayFromString(TestInput);
-        result.Should().BeEquivalentTo(ExpectedArray);
+        var result = StringHelpers.GetListFromStringWithBounds(TestInput);
+        result.list.Should().BeEquivalentTo(ExpectedList);
+        result.bounds.w.Should().Be(3);
+        result.bounds.h.Should().Be(2);
     }
 }

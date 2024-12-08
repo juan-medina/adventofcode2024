@@ -6,9 +6,10 @@ public class SolutionDay08() : DaySolver(8)
 {
     public override ulong Resolve(int part, string input)
     {
-        var map = StringHelpers.GetListFromString(input);
-        _bounds = (map.Count, map[0].Length);
-        map.SelectMany((rb, y) => rb.Select((f, x) => (x, y, f))).Where(t => t.f != '.').Select(t => (t.y, t.x, t.f))
+        var map = StringHelpers.GetListFromStringWithBounds(input);
+        _bounds = map.bounds;
+        map.list.SelectMany((rb, y) => rb.Select((f, x) => (x, y, f))).Where(t => t.f != '.')
+            .Select(t => (t.y, t.x, t.f))
             .GroupBy(a => a.f).SelectMany(g => g.SelectMany(a1 => g.Where(a2 => a1 != a2), (a1, a2) => (a1, a2)))
             .ToList().ForEach(pair =>
                 {

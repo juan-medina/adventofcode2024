@@ -21,6 +21,9 @@ public static class StringHelpers
     public static List<string> GetListFromString(string input) =>
         input.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries).ToList();
 
-    public static char[][] Get2DArrayFromString(string input) =>
-        GetListFromString(input).Select(line => line.ToCharArray()).ToArray();
+    public static (List<string> list, (int h, int w) bounds) GetListFromStringWithBounds(string input)
+    {
+        var list = GetListFromString(input);
+        return (list, (list.Count, list.Max(line => line.Length)));
+    }
 }
