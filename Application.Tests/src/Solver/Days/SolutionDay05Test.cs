@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Application.Solver.Days;
+using Application.Tests.Test;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -59,13 +60,15 @@ public class SolutionDay05Test : SolutionDay05
                                  97,13,75,29,47
                                  """;
 
-    private const int Part1Expected = 143;
+    [TestMethod]
+    public void ResolvePart1Test() => TestHelpers.TestPart<SolutionDay05>(1, Input, 143);
 
     [TestMethod]
-    public void ResolvePart1Test() => new SolutionDay05().Resolve(1, Input).Should().Be(Part1Expected);
-
-    private const int Part2Expected = 123;
+    public void ResolvePart1TestWithFile() => TestHelpers.TestFullFile<SolutionDay05>(1, 5762);
 
     [TestMethod]
-    public void ResolvePart2Test() => new SolutionDay05().Resolve(2, Input).Should().Be(Part2Expected);
+    public void ResolvePart2Test() => TestHelpers.TestPart<SolutionDay05>(2, Input, 123);
+
+    [TestMethod]
+    public void ResolvePart2TestWithFile() => TestHelpers.TestFullFile<SolutionDay05>(2, 4130);
 }
