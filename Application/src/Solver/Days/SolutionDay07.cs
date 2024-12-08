@@ -14,23 +14,24 @@ public class SolutionDay07() : DaySolver(7)
 
     private static ulong Calc(ulong[] items, ulong target, List<Operator> operators)
     {
-        var queue = new Queue<(int, ulong)>();
-        queue.Enqueue((0, 0));
-        while (queue.Count > 0)
+        Queue.Clear();
+        Queue.Enqueue((0,0ul));
+        while (Queue.Count > 0)
         {
-            var (index, current) = queue.Dequeue();
+            var (index, current) = Queue.Dequeue();
             if (current >= target || index == items.Length) return current;
 
             foreach (var result in operators.Select(operation => operation(current, items[index])))
             {
                 if (result == target) return target;
-                queue.Enqueue((index + 1, current));
+                Queue.Enqueue((index + 1, result));
             }
         }
 
         return 0;
     }
 
+    private static readonly Queue<(int, ulong)> Queue = new();
     private delegate ulong Operator(ulong param1, ulong param2);
 
     private static readonly List<Operator> Part1Operators = [(a, b) => a + b, (a, b) => a * b];
