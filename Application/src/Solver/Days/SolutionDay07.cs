@@ -12,26 +12,20 @@ public class SolutionDay07() : DaySolver(7)
         where result == target
         select result).Aggregate(0ul, (current, result) => current + result);
 
-    private static ulong Calc(ulong[] items, ulong target, List<Operator> operators)
+    private static ulong Calc(ulong[] items, ulong target, List<Operator> operators, int index = 0, ulong current = 0)
     {
-        Queue.Clear();
-        Queue.Enqueue((0,0ul));
-        while (Queue.Count > 0)
+        if (current >= target || index == items.Length) return current;
+        foreach (var operation in operators)
         {
-            var (index, current) = Queue.Dequeue();
-            if (current >= target || index == items.Length) return current;
-
-            foreach (var result in operators.Select(operation => operation(current, items[index])))
+            if (Calc(items, target, operators, index + 1, operation(current, items[index])) == target)
             {
-                if (result == target) return target;
-                Queue.Enqueue((index + 1, result));
+                return target;
             }
         }
 
-        return 0;
+        return current;
     }
 
-    private static readonly Queue<(int, ulong)> Queue = new();
     private delegate ulong Operator(ulong param1, ulong param2);
 
     private static readonly List<Operator> Part1Operators = [(a, b) => a + b, (a, b) => a * b];
