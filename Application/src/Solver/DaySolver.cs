@@ -48,11 +48,9 @@ public abstract class DaySolver(int day) : IDaySolver
         var input = File.ReadAllText(filePath);
 
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"Input: {filePath}");
-        Console.WriteLine();
+        Console.WriteLine($"Input:");
         Console.ResetColor();
-        Console.WriteLine(input);
-        Console.WriteLine();
+        Console.WriteLine(filePath);
 
         // get timer before
         var timer = Stopwatch.StartNew();
@@ -61,15 +59,12 @@ public abstract class DaySolver(int day) : IDaySolver
 
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("Result:");
-        Console.WriteLine();
         Console.ResetColor();
         Console.WriteLine(result);
         Console.ResetColor();
-        Console.WriteLine();
 
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine($"Time:");
-        Console.WriteLine();
         Console.ResetColor();
         Console.WriteLine($"{timer.ElapsedMilliseconds} ms");
     }
