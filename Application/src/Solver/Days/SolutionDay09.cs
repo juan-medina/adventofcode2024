@@ -12,7 +12,7 @@ public class SolutionDay09() : DaySolver(9)
         {
             blocks.Add((isFile ? id++ : ulong.MaxValue, len));
             isFile = !isFile;
-        }// the data is [file,free space,file, free space, ...] the id increases only in files
+        }// the data is lenght of [file,free space,file, free space, ...] the id increases only in files
 
         var compacted = new List<(ulong id, ulong len)>();
         for (var i = 0; i < blocks.Count; i++) // all blocks to compact
