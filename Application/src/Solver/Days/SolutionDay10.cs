@@ -23,9 +23,8 @@ public class SolutionDay10() : DaySolver(10)
             if (cpos.x < 0 || cpos.x > _bounds.w - 1 || cpos.y < 0 || cpos.y > _bounds.h - 1) continue; // OoB
             if (int.Parse(map[cpos.y][cpos.x].ToString()) != search) continue; // not the right number
             if (part == 1) if (!visits!.Add((cpos, search))) continue; // already visited (only part 1)
-            if (search != 9) foreach (var dir in Dirs) // queue each direction 
-                    queue.Enqueue(((cpos.y + dir.y, cpos.x + dir.x), search + 1));
-            else totalPaths++; // is a 9, count one path
+            if (search == 9) totalPaths++; // is a 9, we reach the end, count one path
+            else foreach (var dir in Dirs) queue.Enqueue(((cpos.y + dir.y, cpos.x + dir.x), search + 1)); // q each dir
         }
 
         return totalPaths;
