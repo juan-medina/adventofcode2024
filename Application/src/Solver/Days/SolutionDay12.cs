@@ -53,10 +53,8 @@ public class SolutionDay12() : DaySolver(12)
             var v = wall.dir.x == 0 ? wall.pos.x : wall.pos.y; // if we're doing horizontal, value is x, if not y
             var a = wall.dir.x == 0 ? wall.pos.y : wall.pos.x; // if we're doing horizontal, the axis is y, if not x
 
-            if (!wh.TryGetValue((wall.dir, a), out var items)) // do we have walls in this direction in this axis
-                wh.Add((wall.dir, a), [v]); // add first wall
-            else
-                items.Add(v); // append new wall
+            if (!wh.TryGetValue((wall.dir, a), out var items)) wh[(wall.dir, a)] = [v]; // noa wall in the axis, add
+            else items.Add(v); // append to exist wall
         }
 
         return wh.Values.Select(v => v.OrderBy(x => x).Zip(v.OrderBy(x => x).Skip(1), // sorting and zip in pairs
