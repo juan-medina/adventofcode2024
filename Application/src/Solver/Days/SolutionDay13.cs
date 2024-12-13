@@ -24,8 +24,8 @@ public partial class SolutionDay13() : DaySolver(13)
         (long a, long b) divisor = (m.a.x * m.b.y - m.a.y * m.b.x, m.a.y * m.b.x - m.a.x * m.b.y);
         (long a, long b) dividend = (m.b.y * m.p.X - m.b.x * m.p.Y, m.a.y * m.p.X - m.a.x * m.p.Y);
         (long a, long b) reminder = (dividend.a % divisor.a, dividend.b % divisor.b);
-        if (reminder.a != 0 || reminder.b != 0) return (0, 0);
-        return (dividend.a / divisor.a, dividend.b / divisor.b); // ig GCD do not work we return (0,0)
+        if (reminder.a != 0 || reminder.b != 0) return (0, 0); // ig GCD do not work we return (0,0)
+        return (dividend.a / divisor.a, dividend.b / divisor.b); // return our presses 
     }
 
     private static (long a, long b) DiophantineApprox(((long x, long y) a, (long x, long y) b, (long X, long Y) p) m)
