@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay10() : DaySolver(10)
 {
-    public override ulong Resolve(int part, string input)
+    public override ulong Resolve(int part, string input, bool _)
     {
         var map = StringHelpers.GetListFromStringWithBounds(input);
         _bounds = map.bounds;

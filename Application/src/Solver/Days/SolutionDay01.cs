@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay01() : DaySolver(1)
 {
-    public override ulong Resolve(int part, string input)
+    public override ulong Resolve(int part, string input, bool _)
     {
         var (left, right) = SplitInLeftRightLists(input);
         return (ulong)(part == 1 ? Part1(left, right) : Part2(left, right));

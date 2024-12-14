@@ -7,7 +7,7 @@ public class SolutionDay04() : DaySolver(4)
     private const string Part1Search = "XMAS";
     private const string Part2Search = "MAS";
 
-    public override ulong Resolve(int part, string input)
+    public override ulong Resolve(int part, string input, bool _)
     {
         var map = StringHelpers.GetListFromString(input);
         return (ulong)map

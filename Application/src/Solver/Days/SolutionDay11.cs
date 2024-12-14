@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay11() : DaySolver(11)
 {
-    public override ulong Resolve(int part, string input) =>
+    public override ulong Resolve(int part, string input, bool _) =>
         StringHelpers.GetListFromString(input).SelectMany(line => line.Split(' ').Select(ulong.Parse))
             .ToList().Aggregate(0ul, (current, stone) => current + Count(stone, part == 1 ? 25ul : 75ul)); 
 

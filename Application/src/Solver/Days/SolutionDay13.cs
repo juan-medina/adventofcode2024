@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public partial class SolutionDay13() : DaySolver(13)
 {
-    public override ulong Resolve(int part, string input) =>
+    public override ulong Resolve(int part, string input, bool _) =>
         (ulong)Parse(input, part).Select(ButtonPushes).Sum(b => b.a * 3 + b.b);
 
     private static (long a, long b) ButtonPushes(((long x, long y) a, (long x, long y) b, (long X, long Y) p) m)
@@ -12,7 +12,7 @@ public partial class SolutionDay13() : DaySolver(13)
         var tickets = TryGcd(m); // Try first with Greatest Common Divisor
         if (tickets.a != 0 && tickets.b != 0) return tickets; // return the tickets if we have a valid output
 
-        if (m.a.x * m.b.y != m.a.y * m.a.x) return (0, 0); // if the are linearly independent, no solution exists
+        if (m.a.x * m.b.y != m.a.y * m.a.x) return (0, 0); // if they are linearly independent, no solution exists
         if (!(m.a.x * m.p.Y != m.a.y * m.p.X || m.b.x * m.p.Y != m.b.x * m.p.X))
             return (0, 0); // if we can not reach p using a or b we can not solve
 

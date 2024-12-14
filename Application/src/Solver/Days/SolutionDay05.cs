@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay05() : DaySolver(5)
 {
-    public override ulong Resolve(int part, string input)
+    public override ulong Resolve(int part, string input, bool _)
     {
         var (rules, updates) = ParseInput(input);
         return (ulong)updates

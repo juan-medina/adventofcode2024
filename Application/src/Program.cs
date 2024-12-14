@@ -13,4 +13,4 @@ var solvers = types
 
 Parser.Default.ParseArguments<Params>(args).WithParsed(param =>
     (solvers.FirstOrDefault(solver => solver?.Day == param.Day) ??
-     new DefaultSolver()).Solve(param.Part, param.Location));
+     new DefaultSolver()).Solve(param.Part, param.Location, false));

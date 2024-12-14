@@ -2,7 +2,7 @@
 
 public class SolutionDay09() : DaySolver(9)
 {
-    public override ulong Resolve(int part, string input)
+    public override ulong Resolve(int part, string input, bool _)
     {
         var blocks = new List<(ulong id, ulong len)>();
 

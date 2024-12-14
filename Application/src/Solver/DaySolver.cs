@@ -4,7 +4,7 @@ namespace Application.Solver;
 
 public interface IDaySolver
 {
-    void Solve(int part, string dataPath);
+    void Solve(int part, string dataPath, bool test);
     int Day { get; }
 }
 
@@ -12,7 +12,7 @@ public abstract class DaySolver(int day) : IDaySolver
 {
     public int Day { get; } = day;
 
-    public void Solve(int part, string dataPath)
+    public void Solve(int part, string dataPath, bool test)
     {
         if (part is < 1 or > 2)
         {
@@ -54,7 +54,7 @@ public abstract class DaySolver(int day) : IDaySolver
 
         // get timer before
         var timer = Stopwatch.StartNew();
-        var result = Resolve(part, input);
+        var result = Resolve(part, input, test);
         timer.Stop();
 
         Console.ForegroundColor = ConsoleColor.Blue;
@@ -69,12 +69,12 @@ public abstract class DaySolver(int day) : IDaySolver
         Console.WriteLine($"{timer.ElapsedMilliseconds} ms");
     }
 
-    public abstract ulong Resolve(int part, string input);
+    public abstract ulong Resolve(int part, string input, bool test);
 }
 
 public class DefaultSolver : IDaySolver
 {
-    public void Solve(int part, string dataPath)
+    public void Solve(int part, string dataPath, bool _)
     {
         Console.Error.WriteLine("Solver not found for the given day");
     }

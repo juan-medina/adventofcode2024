@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay07() : DaySolver(7)
 {
-    public override ulong Resolve(int part, string input) => (from line in StringHelpers.GetListFromString(input)
+    public override ulong Resolve(int part, string input, bool _) => (from line in StringHelpers.GetListFromString(input)
         select line.Split([' ', ':'], StringSplitOptions.RemoveEmptyEntries).Select(ulong.Parse).ToArray()
         into items
         let target = items[0]

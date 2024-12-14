@@ -4,7 +4,7 @@ namespace Application.Solver.Days;
 
 public class SolutionDay06() : DaySolver(6)
 {
-    public override ulong Resolve(int part, string input)
+    public override ulong Resolve(int part, string input, bool _)
     {
         var map = StringHelpers.GetListFromStringWithBounds(input);
         var blocks = map.list.SelectMany((rb, y) => rb.Select((cb, x) => (x, y, cb)))
