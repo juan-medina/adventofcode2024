@@ -27,14 +27,11 @@ public partial class SolutionDay14() : DaySolver(14)
         .Select(pos => (pos.Item1 < 0 ? pos.Item1 + width : pos.Item1, pos.Item2 < 0 ? pos.Item2 + height : pos.Item2))
         .ToList();
 
-    private static List<( (int x, int y) p, (int x, int y) v)> Parse(string input)
-    {
-        var matches = ParseRegex().Matches(input);
-        return matches.Select(match => (
+    private static List<( (int x, int y) p, (int x, int y) v)> Parse(string input) =>
+        ParseRegex().Matches(input).Select(match => (
             (int.Parse(match.Groups[1].Value), int.Parse(match.Groups[2].Value)),
             (int.Parse(match.Groups[3].Value), int.Parse(match.Groups[4].Value))
         )).ToList();
-    }
 
     [GeneratedRegex(@"p=(\d+),(\d+) v=([+-]?\d+),([+-]?\d+)")]
     private static partial Regex ParseRegex();
