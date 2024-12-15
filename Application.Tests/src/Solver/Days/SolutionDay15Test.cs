@@ -53,4 +53,7 @@ public class SolutionDay15Test : SolutionDay15
     
     [TestMethod]
     public void ResolvePart1TestWithFile() => TestHelpers.TestFullFile<SolutionDay15>(1, 1486930);
+    
+    [TestMethod]
+    public void ResolvePart2Test() => TestHelpers.TestPart<SolutionDay15>(2, Input, 9021);    
 }
