@@ -6,117 +6,72 @@ public class SolutionDay15() : DaySolver(15)
 {
     public override ulong Resolve(int part, string input, bool test)
     {
-        (_obstacles, _walls, _moves, _bot) = Parse(input, part);
-
-        DrawMap("Initial state:");
-
-        foreach (var d in _moves)
-        {
-            Move(d);
-            DrawMap($"Move {d}:");
-        }
-
-        var total = 0;
-        foreach (var o in _obstacles)
-        {
-            if (o.c == ']') continue;
-            total += o.y * 100 + o.x;
-        }
-
-        return (ulong)total;
+        (_boxes, _walls, _moves, _bot) = Parse(input, part); // parse the input
+        _moves.ForEach(Move); // do the movements
+        return (ulong)_boxes.Where(o => o.t != T.Rb).Sum(o => o.y * 100 + o.x); // GPS of the boxes, skip right sides
     }
 
     private void Move(char dir)
     {
-        var d = Dirs[dir];
-        (int y, int x) n = (_bot.y + d.y, _bot.x + d.x);
-        if (CanBePushed(n, d))
-        {
-            MoveObstacles(n, d);
-            _bot = n;
-        }
+        var d = Dirs[dir]; // get the direction 
+        (int y, int x) n = (_bot.y + d.y, _bot.x + d.x); // get the new position using the direction
+        if (!CanBePushed(n, d)) return; // if we can not move return
+        MoveBoxes(n, d); // move the obstacles in the new position
+        _bot = n; // update the bot position
     }
 
-    enum ObjectType
+    private T GetObjectType((int y, int x) pos)
     {
-        Wall,
-        Goods,
-        LeftGoods,
-        RightGoods,
-        Empty,
-    }
-
-    private ObjectType GetObjectType((int y, int x) pos)
-    {
-        if (_walls.Contains(pos)) return ObjectType.Wall;
-        var obstacle = _obstacles.FirstOrDefault(o => o.x == pos.x && pos.y == o.y);
-        return obstacle == default
-            ? ObjectType.Empty
-            : obstacle.c switch
-            {
-                'O' => ObjectType.Goods,
-                '[' => ObjectType.LeftGoods,
-                ']' => ObjectType.RightGoods,
-                _ => ObjectType.Empty
-            };
+        if (_walls.Contains(pos)) return T.Wall; // check if is on the wall list
+        var obstacle = _boxes.FirstOrDefault(o => o.x == pos.x && pos.y == o.y); // find an obstacle in this pos
+        return obstacle != default ? obstacle.t : T.Empty; // return the type, or empty if is not an obstacle
     }
 
     private bool CanBePushed((int y, int x) pos, (int y, int x) d)
     {
-        return GetObjectType(pos) switch
+        var type = GetObjectType(pos); // get what object type is in this position
+        return type switch
         {
-            ObjectType.Empty => true,
-            ObjectType.Wall => false,
-            ObjectType.Goods => CanBePushed((pos.y + d.y, pos.x + d.x), d),
-            ObjectType.LeftGoods => CanBePushed((pos.y + d.y, pos.x + d.x), d) &&
-                                    (d.y == 0 || CanBePushed((pos.y + d.y, pos.x + d.x + 1), d)),
-            ObjectType.RightGoods => CanBePushed((pos.y + d.y, pos.x + d.x), d) &&
-                                     (d.y == 0 || CanBePushed((pos.y + d.y, pos.x + d.x - 1), d)),
-            _ => false
+            T.Empty => true, // we can push a empty space
+            T.Wall => false, // we can not push a wall
+            T.Box or T.Lb or T.Rb => CanBePushed((pos.y + d.y, pos.x + d.x), d) && // left part of the box
+                                     (type == T.Box || d.y == 0 || // skip if is a single box or going horizontal
+                                      CanBePushed((pos.y + d.y, pos.x + d.x + (type == T.Lb ? 1 : -1)), d)), // right p
+            _ => false // this shouldn't happen (famous last words)
         };
     }
 
-    private void MoveObstacles((int y, int x) pos, (int y, int x) d)
+    private void MoveBoxes((int y, int x) pos, (int y, int x) d)
     {
-        switch (GetObjectType(pos))
+        var type = GetObjectType(pos); // get what object type is in this position
+        switch (type)
         {
-            case ObjectType.Empty: break;
-            case ObjectType.Wall: throw new InvalidOperationException();
-            case ObjectType.Goods:
-                MoveObstacles((pos.y + d.y, pos.x + d.x), d);
-                ReposObstacle((pos.y, pos.x), d);
-                break;
-            case ObjectType.LeftGoods:
-                MoveObstacles((pos.y + d.y, pos.x + d.x), d);
-                ReposObstacle((pos.y, pos.x), d);
-                if (d.y != 0)
+            case T.Box:
+            case T.Lb:
+            case T.Rb:
+                MoveBoxes((pos.y + d.y, pos.x + d.x), d); // move other obstacles in left part of the box
+                UpdateBox((pos.y, pos.x), d); // update this part of the box
+                if (type != T.Box && d.y != 0) // if not a single box or going horizontal
                 {
-                    MoveObstacles((pos.y + d.y, pos.x + d.x + 1), d);
-                    ReposObstacle((pos.y, pos.x + 1), d);
+                    var add = type == T.Lb ? 1 : -1; // if left or right part of the box
+                    MoveBoxes((pos.y + d.y, pos.x + d.x + add), d); // move other obstacles in right part of the box
+                    UpdateBox((pos.y, pos.x + add), d); // update the right part of the box
                 }
 
                 break;
-            case ObjectType.RightGoods:
-                MoveObstacles((pos.y + d.y, pos.x + d.x), d);
-                ReposObstacle((pos.y, pos.x), d);
-                if (d.y != 0)
-                {
-                    MoveObstacles((pos.y + d.y, pos.x + d.x - 1), d);
-                    ReposObstacle((pos.y, pos.x - 1), d);
-                }
-
-                break;
+            case T.Empty:
+            case T.Wall:
+            case T.Bot:
             default:
-                throw new InvalidOperationException();
+                break; // nothing to do in these objects types
         }
     }
 
-    private void ReposObstacle((int y, int x) pos, (int y, int x) d)
+    private void UpdateBox((int y, int x) pos, (int y, int x) d)
     {
-        var obstacle = _obstacles.FirstOrDefault(o => o.x == pos.x && pos.y == o.y);
-        if (obstacle == default) throw new InvalidOperationException();
-        _obstacles.Remove(obstacle);
-        _obstacles.Add((pos.y + d.y, pos.x + d.x, obstacle.c));
+        var o = _boxes.First(o => o.x == pos.x && pos.y == o.y); // find the obstacle
+        _boxes.Remove(o); // remove it
+        _boxes.Add((pos.y + d.y, pos.x + d.x, o.t)); // add it in the new position
     }
 
     private static readonly Dictionary<char, (int y, int x)> Dirs = new()
@@ -127,19 +82,28 @@ public class SolutionDay15() : DaySolver(15)
         { '^', (-1, 0) }
     };
 
-    private List<(int y, int x, char c)> _obstacles = [];
+    private List<(int y, int x, T t)> _boxes = [];
     private List<(int y, int x)> _walls = [];
     private List<char> _moves = [];
     private (int y, int x) _bot = (0, 0);
 
-    private static (List<(int y, int x, char c)> obstacles, List<(int y, int x)> walls, List<char> moves,
+    private enum T
+    {
+        Wall = '#',
+        Box = 'O',
+        Lb = '[',
+        Rb = ']',
+        Empty = '.',
+        Bot = '@'
+    }
+
+    private static (List<(int y, int x, T c)> boxes, List<(int y, int x)> walls, List<char> moves,
         (int y, int x) bot) Parse(string input, int part)
     {
-        var list = StringHelpers.GetListFromString(input);
-        var l = list.Where(line => line.StartsWith('#')).ToList();
-        var map = l.Select(line => line.Select(c => c).ToList()).ToList();
-
-        if (part == 2)
+        var list = StringHelpers.GetListFromString(input); // read all input as strings, this skip the empty lines
+        var l = list.Where(line => line.StartsWith('#')).ToList(); // the map lines are starting with #
+        var map = l.Select(line => line.Select(c => c).ToList()).ToList(); // convert to a list
+        if (part == 2) // if part 2 expand it
         {
             for (var j = 0; j < map.Count; j++)
             {
@@ -153,60 +117,35 @@ public class SolutionDay15() : DaySolver(15)
         }
 
         List<(int y, int x)> walls = [];
-        List<(int y, int x, char c)> obstacles = [];
+        List<(int y, int x, T t)> boxes = [];
         (int y, int x) bot = (0, 0);
 
         for (var j = 0; j < map.Count; j++)
         {
             for (var i = 0; i < map[j].Count; i++)
             {
-                var c = map[j][i];
-                switch (c)
+                var t = (T)map[j][i];
+                switch (t)
                 {
-                    case '#':
-                        walls.Add((j, i));
+                    case T.Wall:
+                        walls.Add((j, i)); // add the wall
                         break;
-                    case 'O':
-                    case '[':
-                    case ']':
-                        obstacles.Add((j, i, c));
+                    case T.Box:
+                    case T.Lb:
+                    case T.Rb:
+                        boxes.Add((j, i, t)); // add the box, single, left or right
                         break;
-                    case '@':
-                        bot = (j, i);
+                    case T.Bot:
+                        bot = (j, i); // save the bot position
+                        break;
+                    case T.Empty: // we don't need to store empty spaces
+                    default:
                         break;
                 }
             }
         }
 
         var moves = list.Where(line => !line.StartsWith('#')).SelectMany(line => line.ToCharArray()).ToList();
-        return (obstacles, walls, moves, bot);
-    }
-
-
-    private void DrawMap(string title)
-    {
-        Console.WriteLine(title);
-        var maxX = _walls.Max(o => o.x) + 1;
-        var maxY = _walls.Max(o => o.y) + 1;
-
-        var map = new char[maxY, maxX];
-
-        for (var y = 0; y < maxY; y++)
-        for (var x = 0; x < maxX; x++)
-            map[y, x] = '.';
-
-        foreach (var wall in _walls) map[wall.y, wall.x] = '#';
-
-        foreach (var obstacle in _obstacles)
-        {
-            map[obstacle.y, obstacle.x] = obstacle.c;
-        }
-
-        map[_bot.y, _bot.x] = '@';
-
-        for (var y = 0; y < maxY; y++)
-            Console.WriteLine(string.Join("", Enumerable.Range(0, maxX).Select(x => map[y, x])));
-
-        Console.WriteLine();
+        return (boxes, walls, moves, bot);
     }
 }
