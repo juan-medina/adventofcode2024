@@ -6,85 +6,133 @@ public class SolutionDay15() : DaySolver(15)
 {
     public override ulong Resolve(int part, string input, bool test)
     {
-        (obstacles, walls, moves, bot) = Parse(input, part);
+        (_obstacles, _walls, _moves, _bot) = Parse(input, part);
 
         DrawMap("Initial state:");
 
-        foreach (var d in moves)
+        foreach (var d in _moves)
         {
             Move(d);
             DrawMap($"Move {d}:");
         }
 
         var total = 0;
-        foreach (var o in obstacles)
+        foreach (var o in _obstacles)
         {
+            if (o.c == ']') continue;
             total += o.y * 100 + o.x;
         }
 
         return (ulong)total;
     }
 
-    private void Move(char d)
+    private void Move(char dir)
     {
-        var dir = Dirs[d];
-        (int y, int x) n = (bot.y + dir.y, bot.x + dir.x);
-        if (walls.Contains((n.y, n.x))) return;
-        var o = obstacles.FirstOrDefault(o => o.x <= n.x && n.x < o.x + o.len && o.y == n.y);
-        if (o != default)
+        var d = Dirs[dir];
+        (int y, int x) n = (_bot.y + d.y, _bot.x + d.x);
+        if (CanBePushed(n, d))
         {
-            var moved = GetObstaclesToMove(o, dir);
-            if (moved.Count == 0) return;
-            foreach (var mov in moved)
+            MoveObstacles(n, d);
+            _bot = n;
+        }
+    }
+
+    enum ObjectType
+    {
+        Wall,
+        Goods,
+        LeftGoods,
+        RightGoods,
+        Empty,
+    }
+
+    private ObjectType GetObjectType((int y, int x) pos)
+    {
+        if (_walls.Contains(pos)) return ObjectType.Wall;
+        var obstacle = _obstacles.FirstOrDefault(o => o.x == pos.x && pos.y == o.y);
+        return obstacle == default
+            ? ObjectType.Empty
+            : obstacle.c switch
             {
-                obstacles.Remove(mov); // remove the moved obstacles
-                obstacles.Add((mov.y + dir.y, mov.x + dir.x, mov.len));
-            }
-        }
-
-        bot = n;
+                'O' => ObjectType.Goods,
+                '[' => ObjectType.LeftGoods,
+                ']' => ObjectType.RightGoods,
+                _ => ObjectType.Empty
+            };
     }
 
-    private List<(int y, int x, int len)> GetObstaclesToMove((int y, int x, int len) pos, (int y, int x) d)
+    private bool CanBePushed((int y, int x) pos, (int y, int x) d)
     {
-        var check = new HashSet<(int y, int x, int len)>();
-        if (walls.Contains((pos.y, pos.x))) return [];
-
-        foreach (var next in GetNext(pos, d))
+        return GetObjectType(pos) switch
         {
-            if (walls.Contains((next.y, next.x))) return [];
-            var o = obstacles.FirstOrDefault(o => o.y == next.y && o.x == next.x);
-            if (o == default) continue;
-            var moved = GetObstaclesToMove(o, d);
-            if (moved.Count == 0) return [];
-            foreach (var mov in moved) check.Add(mov);
-        }
-
-        check.Add((pos.y, pos.x, pos.len));
-        return check.ToList();
+            ObjectType.Empty => true,
+            ObjectType.Wall => false,
+            ObjectType.Goods => CanBePushed((pos.y + d.y, pos.x + d.x), d),
+            ObjectType.LeftGoods => CanBePushed((pos.y + d.y, pos.x + d.x), d) &&
+                                    (d.y == 0 || CanBePushed((pos.y + d.y, pos.x + d.x + 1), d)),
+            ObjectType.RightGoods => CanBePushed((pos.y + d.y, pos.x + d.x), d) &&
+                                     (d.y == 0 || CanBePushed((pos.y + d.y, pos.x + d.x - 1), d)),
+            _ => false
+        };
     }
 
-    private static List<(int y, int x, int len)> GetNext((int y, int x, int len) pos, (int y, int x) d)
+    private void MoveObstacles((int y, int x) pos, (int y, int x) d)
     {
-        if (pos.len == 1)
+        switch (GetObjectType(pos))
         {
-            return [(pos.y + d.y, pos.x + d.x, pos.len)];
-        }
+            case ObjectType.Empty: break;
+            case ObjectType.Wall: throw new InvalidOperationException();
+            case ObjectType.Goods:
+                MoveObstacles((pos.y + d.y, pos.x + d.x), d);
+                ReposObstacle((pos.y, pos.x), d);
+                break;
+            case ObjectType.LeftGoods:
+                MoveObstacles((pos.y + d.y, pos.x + d.x), d);
+                ReposObstacle((pos.y, pos.x), d);
+                if (d.y != 0)
+                {
+                    MoveObstacles((pos.y + d.y, pos.x + d.x + 1), d);
+                    ReposObstacle((pos.y, pos.x + 1), d);
+                }
 
-        if (d.y == 0)
-        {
-            return [(pos.y + d.y, pos.x + d.x * pos.len, pos.len)];
-        }
+                break;
+            case ObjectType.RightGoods:
+                MoveObstacles((pos.y + d.y, pos.x + d.x), d);
+                ReposObstacle((pos.y, pos.x), d);
+                if (d.y != 0)
+                {
+                    MoveObstacles((pos.y + d.y, pos.x + d.x - 1), d);
+                    ReposObstacle((pos.y, pos.x - 1), d);
+                }
 
-        return
-        [
-            (pos.y + d.y, pos.x + d.x, pos.len),
-            (pos.y + d.y, pos.x + d.x - (pos.len / 2), pos.len),
-            (pos.y + d.y, pos.x + d.x + (pos.len / 2), pos.len)
-        ];
+                break;
+            default:
+                throw new InvalidOperationException();
+        }
     }
 
-    protected static (List<(int y, int x, int len)> obstacles, List<(int y, int x)> walls, List<char> moves,
+    private void ReposObstacle((int y, int x) pos, (int y, int x) d)
+    {
+        var obstacle = _obstacles.FirstOrDefault(o => o.x == pos.x && pos.y == o.y);
+        if (obstacle == default) throw new InvalidOperationException();
+        _obstacles.Remove(obstacle);
+        _obstacles.Add((pos.y + d.y, pos.x + d.x, obstacle.c));
+    }
+
+    private static readonly Dictionary<char, (int y, int x)> Dirs = new()
+    {
+        { '>', (0, 1) },
+        { 'v', (1, 0) },
+        { '<', (0, -1) },
+        { '^', (-1, 0) }
+    };
+
+    private List<(int y, int x, char c)> _obstacles = [];
+    private List<(int y, int x)> _walls = [];
+    private List<char> _moves = [];
+    private (int y, int x) _bot = (0, 0);
+
+    private static (List<(int y, int x, char c)> obstacles, List<(int y, int x)> walls, List<char> moves,
         (int y, int x) bot) Parse(string input, int part)
     {
         var list = StringHelpers.GetListFromString(input);
@@ -105,7 +153,7 @@ public class SolutionDay15() : DaySolver(15)
         }
 
         List<(int y, int x)> walls = [];
-        List<(int y, int x, int len)> obstacles = [];
+        List<(int y, int x, char c)> obstacles = [];
         (int y, int x) bot = (0, 0);
 
         for (var j = 0; j < map.Count; j++)
@@ -119,10 +167,9 @@ public class SolutionDay15() : DaySolver(15)
                         walls.Add((j, i));
                         break;
                     case 'O':
-                        obstacles.Add((j, i, 1));
-                        break;
                     case '[':
-                        obstacles.Add((j, i, 2));
+                    case ']':
+                        obstacles.Add((j, i, c));
                         break;
                     case '@':
                         bot = (j, i);
@@ -135,24 +182,12 @@ public class SolutionDay15() : DaySolver(15)
         return (obstacles, walls, moves, bot);
     }
 
-    private static readonly Dictionary<char, (int y, int x)> Dirs = new()
-    {
-        { '>', (0, 1) },
-        { 'v', (1, 0) },
-        { '<', (0, -1) },
-        { '^', (-1, 0) }
-    };
-
-    private List<(int y, int x, int len)> obstacles;
-    private List<(int y, int x)> walls;
-    private List<char> moves;
-    private (int y, int x) bot;
 
     private void DrawMap(string title)
     {
         Console.WriteLine(title);
-        var maxX = walls.Max(o => o.x) + 1;
-        var maxY = walls.Max(o => o.y) + 1;
+        var maxX = _walls.Max(o => o.x) + 1;
+        var maxY = _walls.Max(o => o.y) + 1;
 
         var map = new char[maxY, maxX];
 
@@ -160,20 +195,14 @@ public class SolutionDay15() : DaySolver(15)
         for (var x = 0; x < maxX; x++)
             map[y, x] = '.';
 
-        foreach (var wall in walls) map[wall.y, wall.x] = '#';
+        foreach (var wall in _walls) map[wall.y, wall.x] = '#';
 
-        foreach (var obstacle in obstacles)
+        foreach (var obstacle in _obstacles)
         {
-            if (obstacle.len == 1)
-                map[obstacle.y, obstacle.x] = 'O';
-            else
-            {
-                map[obstacle.y, obstacle.x] = '[';
-                map[obstacle.y, obstacle.x + 1] = ']';
-            }
+            map[obstacle.y, obstacle.x] = obstacle.c;
         }
 
-        map[bot.y, bot.x] = '@';
+        map[_bot.y, _bot.x] = '@';
 
         for (var y = 0; y < maxY; y++)
             Console.WriteLine(string.Join("", Enumerable.Range(0, maxX).Select(x => map[y, x])));

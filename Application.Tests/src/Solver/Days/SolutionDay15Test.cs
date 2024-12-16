@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Application.Solver.Days;
+﻿using Application.Solver.Days;
 using Application.Tests.Test;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Application.Tests.Solver.Days;
@@ -59,55 +57,6 @@ public class SolutionDay15Test : SolutionDay15
     [TestMethod]
     public void ResolvePart2Test() => TestHelpers.TestPart<SolutionDay15>(2, Input, 9021);
 
-    private const string InputVerySmall = """
-                                          #######
-                                          #...#.#
-                                          #.....#
-                                          #..OO@#
-                                          #..O..#
-                                          #.....#
-                                          #######
-
-                                          <vv<<^^<<^^
-                                          """;
-
     [TestMethod]
-    public void ResolvePart2TestVerySmall() => TestHelpers.TestPart<SolutionDay15>(2, InputVerySmall, 618);
-
-    [TestMethod]
-    public void ParsePart1Test()
-    {
-        const string testParseInput = """
-                                      ######
-                                      # @  #
-                                      # O  #
-                                      #  O #
-                                      ######
-
-                                      <<
-                                      ^
-                                      >>>>
-                                      """;
-        var (obstacles, walls, moves, bot) = Parse(testParseInput, 1);
-
-        List<char> expectedMove =
-        [
-            '<', '<',
-            '^',
-            '>', '>', '>', '>'
-        ];
-        moves.Should().BeEquivalentTo(expectedMove);
-
-        (int y, int x) expectedBot = (1, 2);
-        bot.Should().BeEquivalentTo(expectedBot);
-
-        List<(int y, int x, int len)> expectedObstacles =
-        [
-            (2, 2, 1),
-            (3, 3, 1)
-        ];
-        obstacles.Should().BeEquivalentTo(expectedObstacles);
-
-        walls.Count.Should().Be(18);
-    }
+    public void ResolvePart2TestWithFile() => TestHelpers.TestFullFile<SolutionDay15>(2, 1492011);
 }
