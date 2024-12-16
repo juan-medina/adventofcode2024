@@ -8,14 +8,12 @@ public class SolutionDay15() : DaySolver(15)
     {
         (obstacles, walls, moves, bot) = Parse(input, part);
 
-        Console.WriteLine("Initial state:");
-        DrawMap();
+        DrawMap("Initial state:");
 
         foreach (var d in moves)
         {
-            Console.WriteLine($"Move {d}:");
             Move(d);
-            DrawMap();
+            DrawMap($"Move {d}:");
         }
 
         var total = 0;
@@ -26,39 +24,6 @@ public class SolutionDay15() : DaySolver(15)
 
         return (ulong)total;
     }
-
-    private void DrawMap()
-    {
-        var maxX = walls.Max(o => o.x) + 1;
-        var maxY = walls.Max(o => o.y) + 1;
-
-        var map = new char[maxY, maxX];
-
-        for (var y = 0; y < maxY; y++)
-        for (var x = 0; x < maxX; x++)
-            map[y, x] = '.';
-
-        foreach (var wall in walls) map[wall.y, wall.x] = '#';
-
-        foreach (var obstacle in obstacles)
-        {
-            if (obstacle.len == 1)
-                map[obstacle.y, obstacle.x] = 'O';
-            else
-            {
-                map[obstacle.y, obstacle.x] = '[';
-                map[obstacle.y, obstacle.x + 1] = ']';
-            }
-        }
-
-        map[bot.y, bot.x] = '@';
-
-        for (var y = 0; y < maxY; y++)
-            Console.WriteLine(string.Join("", Enumerable.Range(0, maxX).Select(x => map[y, x])));
-
-        Console.WriteLine();
-    }
-
 
     private void Move(char d)
     {
@@ -182,4 +147,37 @@ public class SolutionDay15() : DaySolver(15)
     private List<(int y, int x)> walls;
     private List<char> moves;
     private (int y, int x) bot;
+
+    private void DrawMap(string title)
+    {
+        Console.WriteLine(title);
+        var maxX = walls.Max(o => o.x) + 1;
+        var maxY = walls.Max(o => o.y) + 1;
+
+        var map = new char[maxY, maxX];
+
+        for (var y = 0; y < maxY; y++)
+        for (var x = 0; x < maxX; x++)
+            map[y, x] = '.';
+
+        foreach (var wall in walls) map[wall.y, wall.x] = '#';
+
+        foreach (var obstacle in obstacles)
+        {
+            if (obstacle.len == 1)
+                map[obstacle.y, obstacle.x] = 'O';
+            else
+            {
+                map[obstacle.y, obstacle.x] = '[';
+                map[obstacle.y, obstacle.x + 1] = ']';
+            }
+        }
+
+        map[bot.y, bot.x] = '@';
+
+        for (var y = 0; y < maxY; y++)
+            Console.WriteLine(string.Join("", Enumerable.Range(0, maxX).Select(x => map[y, x])));
+
+        Console.WriteLine();
+    }
 }

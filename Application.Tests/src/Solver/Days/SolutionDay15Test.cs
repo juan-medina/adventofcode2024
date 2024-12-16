@@ -56,4 +56,19 @@ public class SolutionDay15Test : SolutionDay15
     
     [TestMethod]
     public void ResolvePart2Test() => TestHelpers.TestPart<SolutionDay15>(2, Input, 9021);    
+    
+    private const string InputVerySmall = """
+                                      #######
+                                      #...#.#
+                                      #.....#
+                                      #..OO@#
+                                      #..O..#
+                                      #.....#
+                                      #######
+                                      
+                                      <vv<<^^<<^^
+                                      """;
+    
+    [TestMethod]
+    public void ResolvePart2TestVerySmall() => TestHelpers.TestPart<SolutionDay15>(2, InputVerySmall, 618);    
 }
