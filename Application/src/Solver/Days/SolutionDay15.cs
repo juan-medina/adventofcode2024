@@ -84,7 +84,7 @@ public class SolutionDay15() : DaySolver(15)
         ];
     }
 
-    private static (List<(int y, int x, int len)> obstacles, List<(int y, int x)> walls, List<char> moves,
+    protected static (List<(int y, int x, int len)> obstacles, List<(int y, int x)> walls, List<char> moves,
         (int y, int x) bot) Parse(string input, int part)
     {
         var list = StringHelpers.GetListFromString(input);
